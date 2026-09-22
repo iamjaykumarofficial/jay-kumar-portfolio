@@ -1,4 +1,4 @@
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   Float,
@@ -91,30 +91,6 @@ const ScreenContent = () => (
               <div style={{ color: "#c4b5fd", fontSize: 12, marginTop: 6 }}>
                 Full Stack Developer
               </div>
-              <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
-                <div
-                  style={{
-                    background: "#915EFF",
-                    color: "#fff",
-                    fontSize: 10,
-                    padding: "7px 16px",
-                    borderRadius: 999,
-                  }}
-                >
-                  View Projects
-                </div>
-                <div
-                  style={{
-                    border: "1px solid #915EFF80",
-                    color: "#fff",
-                    fontSize: 10,
-                    padding: "7px 16px",
-                    borderRadius: 999,
-                  }}
-                >
-                  Contact Me
-                </div>
-              </div>
             </div>
 
             <div style={{ display: "flex", gap: 10, padding: "6px 20px 24px" }}>
@@ -128,35 +104,11 @@ const ScreenContent = () => (
                     padding: 12,
                     flex: 1,
                     textAlign: "center",
+                    fontSize: 18,
                   }}
                 >
-                  <div style={{ fontSize: 18 }}>{icon}</div>
+                  {icon}
                 </div>
-              ))}
-            </div>
-
-            <div
-              style={{
-                padding: "0 20px 10px",
-                color: "#fff",
-                fontSize: 14,
-                fontWeight: 800,
-              }}
-            >
-              Projects.
-            </div>
-            <div style={{ display: "flex", gap: 10, padding: "0 20px 30px" }}>
-              {[1, 2, 3].map((n) => (
-                <div
-                  key={n}
-                  style={{
-                    background: "#151030",
-                    border: "1px solid #ffffff22",
-                    borderRadius: 10,
-                    height: 70,
-                    flex: 1,
-                  }}
-                />
               ))}
             </div>
           </div>
@@ -166,96 +118,98 @@ const ScreenContent = () => (
   </Html>
 );
 
-const ComputerModel = () => {
-  return (
-    <Float speed={1.2} rotationIntensity={0} floatIntensity={0.4}>
-      <group scale={0.92}>
-        {/* Monitor */}
-        <RoundedBox
-          args={[1.75, 1.1, 0.09]}
-          radius={0.06}
-          smoothness={4}
-          position={[0, 0.15, 0]}
-        >
-          <meshStandardMaterial color="#0d0b1f" roughness={0.25} metalness={0.6} />
-        </RoundedBox>
+const ComputerModel = () => (
+  <Float speed={1.2} rotationIntensity={0} floatIntensity={0.45}>
+    <group scale={0.92}>
+      <RoundedBox
+        args={[1.75, 1.1, 0.09]}
+        radius={0.06}
+        smoothness={4}
+        position={[0, 0.15, 0]}
+      >
+        <meshStandardMaterial color="#0d0b1f" roughness={0.25} metalness={0.6} />
+      </RoundedBox>
 
-        <mesh position={[0, 0.15, 0.045]}>
-          <planeGeometry args={[1.55, 0.9]} />
-          <meshStandardMaterial color="#050816" roughness={0.15} metalness={0.2} />
-        </mesh>
+      <mesh position={[0, 0.15, 0.045]}>
+        <planeGeometry args={[1.55, 0.9]} />
+        <meshStandardMaterial color="#050816" roughness={0.15} metalness={0.2} />
+      </mesh>
 
-        <ScreenContent />
+      <ScreenContent />
 
-        {/* Neck + Base */}
-        <RoundedBox args={[0.1, 0.45, 0.1]} radius={0.03} position={[0, -0.62, 0]}>
-          <meshStandardMaterial color="#2a2a45" roughness={0.4} metalness={0.5} />
-        </RoundedBox>
-        <RoundedBox args={[0.62, 0.06, 0.36]} radius={0.03} position={[0, -0.87, 0]}>
-          <meshStandardMaterial color="#2a2a45" roughness={0.4} metalness={0.5} />
-        </RoundedBox>
+      <RoundedBox args={[0.1, 0.45, 0.1]} radius={0.03} position={[0, -0.62, 0]}>
+        <meshStandardMaterial color="#2a2a45" roughness={0.4} metalness={0.5} />
+      </RoundedBox>
+      <RoundedBox args={[0.62, 0.06, 0.36]} radius={0.03} position={[0, -0.87, 0]}>
+        <meshStandardMaterial color="#2a2a45" roughness={0.4} metalness={0.5} />
+      </RoundedBox>
 
-        {/* Keyboard */}
-        <RoundedBox args={[1.05, 0.07, 0.36]} radius={0.04} position={[0, -0.9, 0.78]}>
-          <meshStandardMaterial color="#161228" roughness={0.55} metalness={0.2} />
-        </RoundedBox>
-        <mesh position={[0, -0.855, 0.78]}>
-          <planeGeometry args={[0.95, 0.28]} />
-          <meshStandardMaterial
-            color="#915EFF"
-            emissive="#915EFF"
-            emissiveIntensity={0.35}
-            toneMapped={false}
-          />
-        </mesh>
+      <RoundedBox args={[1.05, 0.07, 0.36]} radius={0.04} position={[0, -0.9, 0.78]}>
+        <meshStandardMaterial color="#161228" roughness={0.55} metalness={0.2} />
+      </RoundedBox>
+      <mesh position={[0, -0.855, 0.78]}>
+        <planeGeometry args={[0.95, 0.28]} />
+        <meshStandardMaterial
+          color="#915EFF"
+          emissive="#915EFF"
+          emissiveIntensity={0.35}
+          toneMapped={false}
+        />
+      </mesh>
 
-        {/* Mouse */}
-        <RoundedBox args={[0.17, 0.07, 0.27]} radius={0.07} position={[0.78, -0.89, 0.82]}>
-          <meshStandardMaterial color="#161228" roughness={0.5} metalness={0.2} />
-        </RoundedBox>
+      <RoundedBox args={[0.17, 0.07, 0.27]} radius={0.07} position={[0.78, -0.89, 0.82]}>
+        <meshStandardMaterial color="#161228" roughness={0.5} metalness={0.2} />
+      </RoundedBox>
 
-        {/* CPU */}
-        <RoundedBox args={[0.36, 0.98, 0.52]} radius={0.04} position={[-1.35, -0.5, 0.3]}>
-          <meshStandardMaterial color="#0d0b1f" roughness={0.35} metalness={0.55} />
-        </RoundedBox>
-        <mesh position={[-1.35, -0.5, 0.57]}>
-          <boxGeometry args={[0.03, 0.72, 0.02]} />
-          <meshStandardMaterial
-            color="#915EFF"
-            emissive="#915EFF"
-            emissiveIntensity={1.6}
-            toneMapped={false}
-          />
-        </mesh>
-        <mesh position={[-1.35, -0.75, 0.57]}>
-          <torusGeometry args={[0.12, 0.015, 16, 32]} />
-          <meshStandardMaterial
-            color="#60a5fa"
-            emissive="#60a5fa"
-            emissiveIntensity={1.2}
-            toneMapped={false}
-          />
-        </mesh>
+      <RoundedBox args={[0.36, 0.98, 0.52]} radius={0.04} position={[-1.35, -0.5, 0.3]}>
+        <meshStandardMaterial color="#0d0b1f" roughness={0.35} metalness={0.55} />
+      </RoundedBox>
+      <mesh position={[-1.35, -0.5, 0.57]}>
+        <boxGeometry args={[0.03, 0.72, 0.02]} />
+        <meshStandardMaterial
+          color="#915EFF"
+          emissive="#915EFF"
+          emissiveIntensity={1.6}
+          toneMapped={false}
+        />
+      </mesh>
+      <mesh position={[-1.35, -0.75, 0.57]}>
+        <torusGeometry args={[0.12, 0.015, 16, 32]} />
+        <meshStandardMaterial
+          color="#60a5fa"
+          emissive="#60a5fa"
+          emissiveIntensity={1.2}
+          toneMapped={false}
+        />
+      </mesh>
 
-        {/* Left Speaker */}
-        <RoundedBox args={[0.23, 0.52, 0.23]} radius={0.05} position={[-0.95, -0.63, 0.72]}>
-          <meshStandardMaterial color="#161228" roughness={0.5} metalness={0.3} />
-        </RoundedBox>
-
-        {/* Right Speaker */}
-        <RoundedBox args={[0.23, 0.52, 0.23]} radius={0.05} position={[0.95, -0.63, 0.55]}>
-          <meshStandardMaterial color="#161228" roughness={0.5} metalness={0.3} />
-        </RoundedBox>
-      </group>
-    </Float>
-  );
-};
+      <RoundedBox args={[0.23, 0.52, 0.23]} radius={0.05} position={[-0.95, -0.63, 0.72]}>
+        <meshStandardMaterial color="#161228" roughness={0.5} metalness={0.3} />
+      </RoundedBox>
+      <RoundedBox args={[0.23, 0.52, 0.23]} radius={0.05} position={[0.95, -0.63, 0.55]}>
+        <meshStandardMaterial color="#161228" roughness={0.5} metalness={0.3} />
+      </RoundedBox>
+    </group>
+  </Float>
+);
 
 const ComputerSetup = () => {
   const groupRef = useRef();
   const dragging = useRef(false);
   const lastPos = useRef({ x: 0, y: 0 });
   const rotation = useRef({ x: -0.1, y: 0.28 });
+  const [ctxKey, setCtxKey] = useState(0);
+
+  // Context lost hone par soft remount (black bg nahi)
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState === "visible") {
+        setCtxKey((k) => k + 1);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, []);
 
   const handlePointerDown = (e) => {
     dragging.current = true;
@@ -268,8 +222,10 @@ const ComputerSetup = () => {
     const dx = e.clientX - lastPos.current.x;
     const dy = e.clientY - lastPos.current.y;
     rotation.current.y += dx * 0.009;
-    rotation.current.x += dy * 0.009;
-    rotation.current.x = Math.max(-0.6, Math.min(0.4, rotation.current.x));
+    rotation.current.x = Math.max(
+      -0.6,
+      Math.min(0.4, rotation.current.x + dy * 0.009)
+    );
     lastPos.current = { x: e.clientX, y: e.clientY };
     if (groupRef.current) {
       groupRef.current.rotation.y = rotation.current.y;
@@ -292,29 +248,30 @@ const ComputerSetup = () => {
         height: "100%",
         touchAction: "none",
         cursor: "grab",
-        background: "transparent",        // ✅ CSS transparent
-        backgroundColor: "transparent",  // ✅ double sure
+        background: "transparent",
       }}
     >
       <Canvas
-        shadows
-        dpr={[1, 2]}
+        key={ctxKey}
+        camera={{ position: [0, 0.05, 5.8], fov: 38 }}
+        dpr={[1, 1.25]}
         gl={{
           antialias: true,
-          alpha: true,                   // ✅ alpha transparent
-          premultipliedAlpha: false,     // ✅ no premultiply
           powerPreference: "high-performance",
-          preserveDrawingBuffer: true,
+          alpha: true,
+          premultipliedAlpha: false,
+          failIfMajorPerformanceCaveat: false,
         }}
-        camera={{ position: [0, 0.05, 5.8], fov: 38 }}
-        style={{
-          background: "transparent",       // ✅ Canvas bg transparent
-          backgroundColor: "transparent",
-        }}
-        onCreated={({ gl, scene }) => {
-          gl.setClearColor(0x000000, 0);   // ✅ fully transparent clear
-          gl.setClearAlpha(0);
-          scene.background = null;          // ✅ no scene bg
+        style={{ background: "transparent" }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0); // fully transparent
+          const canvas = gl.domElement;
+          const onLost = (e) => {
+            e.preventDefault();
+            console.warn("WebGL context lost — remounting computer...");
+            setTimeout(() => setCtxKey((k) => k + 1), 400);
+          };
+          canvas.addEventListener("webglcontextlost", onLost, false);
         }}
       >
         <Suspense fallback={null}>
@@ -322,7 +279,6 @@ const ComputerSetup = () => {
           <directionalLight position={[3, 3, 4]} intensity={1.15} />
           <pointLight position={[-3, -1, -2]} intensity={0.7} color="#915EFF" />
           <pointLight position={[3, 2, -1]} intensity={0.5} color="#60a5fa" />
-          {/* ✅ Environment HATA diya — white flash deta hai */}
 
           <group
             ref={groupRef}
@@ -334,7 +290,7 @@ const ComputerSetup = () => {
 
           <ContactShadows
             position={[0, -1.2, 0]}
-            opacity={0.45}
+            opacity={0.4}
             scale={5}
             blur={2}
             far={2.5}

@@ -10,9 +10,9 @@ const Hero = () => {
 
       {/* 3D Computer - right side */}
       {/* 3D Computer - right side - wider so full model dikhe */}
-      <div className="absolute right-0 sm:right-2 lg:right-8 bottom-0 w-full sm:w-[540px] lg:w-[620px] h-[400px] sm:h-[470px] lg:h-[540px] z-[5]">
-       <ComputerSetup />
-      </div>
+      <div className="absolute right-0 sm:right-2 lg:right-8 bottom-0 w-full sm:w-[540px] lg:w-[620px] h-[400px] sm:h-[470px] lg:h-[540px] z-[5] bg-transparent">
+  <ComputerSetup />
+</div>
 
       {/* Text Content */}
       <div className="absolute inset-0 top-[120px] max-w-7xl mx-auto px-6 flex flex-row items-start gap-5 z-10 pointer-events-none">

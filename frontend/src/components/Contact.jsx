@@ -98,14 +98,14 @@ const Contact = () => {
       </div>
 
       <div
-        className="absolute inset-0 z-[1]"
+        className="absolute inset-0 z-1"
         style={{ pointerEvents: earthDisabled ? "none" : "auto" }}
       >
         <EarthCanvas active={!earthDisabled} />
       </div>
 
       <div
-        className="absolute inset-0 z-[2] pointer-events-none"
+        className="absolute inset-0 z-2 pointer-events-none"
         style={{
           background:
             "radial-gradient(ellipse at 25% 50%, rgba(5,8,22,0.28), transparent 60%), radial-gradient(ellipse at 80% 50%, rgba(5,8,22,0.18), transparent 65%)",
@@ -120,7 +120,7 @@ const Contact = () => {
           viewport={{ once: true }}
           className="mb-10 pointer-events-none"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.04] backdrop-blur-md pointer-events-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/15 bg-white/4 backdrop-blur-md pointer-events-auto">
             <svg
               width="13"
               height="13"
@@ -169,7 +169,7 @@ const Contact = () => {
               <InfoCard
                 href="tel:+910000000000"
                 title="Call me"
-                detail="+91 00000 00000"
+                detail="+91 87703 55013"
                 icon={
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -242,7 +242,7 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3px] h-[100px] bg-gradient-to-b from-transparent via-[#915EFF]/40 to-[#915EFF]/80" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0.75 h-25 bg-linear-to-b from-transparent via-[#915EFF]/40 to-[#915EFF]/80" />
     </section>
   );
 };

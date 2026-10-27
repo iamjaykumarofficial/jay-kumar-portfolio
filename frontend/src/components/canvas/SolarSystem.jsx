@@ -1,4 +1,4 @@
-import { Suspense, useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Sphere, Stars, Html, useTexture } from "@react-three/drei";
 import * as THREE from "three";
@@ -377,18 +377,36 @@ const SolarSystemScene = ({ onSelect }) => {
 ========================================================= */
 
 const SolarSystemCanvas = ({ onSelect }) => {
+  const containerRef = useRef(null);
+  const [active, setActive] = useState(false);
+
+  // Same pattern as the rest of the site now: only render (and keep a
+  // WebGL context open) while this section is actually visible.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { threshold: 0.05, rootMargin: "150px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <div
+      ref={containerRef}
       className="solar-system-canvas absolute inset-0 w-full h-full"
       style={{
         background: "transparent",
         backgroundColor: "transparent",
       }}
     >
+      {active && (
       <Canvas
         dpr={[1, 1.5]}
         gl={{
-          antialias: true,
+          antialias: false,
           alpha: true,
           premultipliedAlpha: false,
           powerPreference: "high-performance",
@@ -415,6 +433,7 @@ const SolarSystemCanvas = ({ onSelect }) => {
           <SolarSystemScene onSelect={onSelect} />
         </Suspense>
       </Canvas>
+      )}
     </div>
   );
 };

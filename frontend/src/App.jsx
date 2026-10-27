@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
-import { BrowserRouter } from "react-router-dom";
+import { useState } from "react";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -11,34 +9,36 @@ import Works from "./components/Works";
 import Contact from "./components/Contact";
 import AnimatedSphere from "./components/canvas/AnimatedSphere";
 
-const App = () => {
+function App() {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  const handleLoaderFinish = () => {
+    setLoading(false);
+  };
 
   return (
-    <BrowserRouter>
-      <AnimatePresence mode="wait">
-        {loading && <Loader key="loader" />}
-      </AnimatePresence>
+    <div className="relative z-0 min-h-screen w-full bg-[#050816]">
+      {/* Loader */}
+      {loading && <Loader onFinish={handleLoaderFinish} />}
 
-      {!loading && (
-        <div className="relative z-0 bg-[#050816]">
-          <Navbar />
+      {/* Global bubble / sphere — unchanged */}
+      <AnimatedSphere />
+
+      {/* Main website */}
+      <div className="relative z-10">
+        <Navbar />
+
+        <main>
           <Hero />
-          <AnimatedSphere />
           <About />
           <Experience />
           <Tech />
           <Works />
           <Contact />
-        </div>
-      )}
-    </BrowserRouter>
+        </main>
+      </div>
+    </div>
   );
-};
+}
 
 export default App;

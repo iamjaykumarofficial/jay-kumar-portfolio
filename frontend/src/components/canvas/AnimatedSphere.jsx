@@ -29,7 +29,7 @@ const DistortedSphere = ({ targetRef }) => {
   return (
     <group ref={groupRef} position={[DEFAULT_TARGET.x, DEFAULT_TARGET.y, 0]}>
       <Float speed={1.4} rotationIntensity={1} floatIntensity={1.8}>
-        <Sphere args={[1, 100, 200]} scale={2.1} ref={meshRef}>
+        <Sphere args={[1, 48, 48]} scale={2.1} ref={meshRef}>
           <MeshDistortMaterial
             color="#915EFF"
             attach="material"
@@ -96,7 +96,8 @@ const AnimatedSphere = () => {
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas
         camera={{ position: [0, 0, 6.5], fov: 42 }}
-        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
       >
         <ambientLight intensity={0.4} />
@@ -105,7 +106,7 @@ const AnimatedSphere = () => {
         <Stars
           radius={100}
           depth={50}
-          count={3500}
+          count={1500}
           factor={4}
           saturation={0}
           fade

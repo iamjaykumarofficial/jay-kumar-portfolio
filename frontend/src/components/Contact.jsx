@@ -8,7 +8,7 @@ const InfoCard = ({ href, icon, title, detail }) => (
     href={href}
     className="group flex items-center gap-3.5 px-4 py-3.5 rounded-xl border border-white/10 bg-[#0c0e18]/70 backdrop-blur-xl hover:border-[#915EFF]/40 transition-all"
   >
-    <div className="w-10 h-10 shrink-0 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#c4b5fd]">
+    <div className="w-10 h-10 shrink-0 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#c4b5fd]">
       {icon}
     </div>
 
